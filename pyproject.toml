@@ -11,4 +11,5 @@ dependencies = [
     "misaki[en]>=0.9.4",
     "onnxruntime>=1.22.0",
     "soundfile>=0.13.1",
+    "unstructured[html]>=0.17.2",
 ]

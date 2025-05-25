@@ -3,7 +3,7 @@ import soundfile as sf
 import wave
 from pathlib import Path
 from typing import Generator
-
+from unstructured.partition.html import partition_html
 import numpy as np
 from loguru import logger
 
@@ -45,11 +45,9 @@ def main():
     # 🇧🇷 'p' => Brazilian Portuguese pt-br
     # 🇨🇳 'z' => Mandarin Chinese: pip install misaki[zh]
 
-    text = """
-    In the world of Rails development, integrating large language models (LLMs) like OpenAI's GPT has become increasingly common. One challenge developers face is streaming these responses efficiently to provide a smooth user experience.
+    elements = partition_html(url="https://thehackernews.com/2025/05/identity-security-has-automation.html")
 
-    This post will explore some different techniques for streaming LLM responses in Rails applications. We'll look at using server-sent events (SSE) and Turbo Streams as two different options for delivering streaming interfaces in Rails applications. We'll also provide some code examples for a demo chat application we made — it has three different bot personalities you can interact with through SSE or Turbo Streams.
-    """
+    text = "\n".join(e.text for e in elements if e.category=="NarrativeText")
 
     generate_and_save_audio(
         Path("output/test.wav"),
